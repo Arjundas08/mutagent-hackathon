@@ -1,0 +1,26 @@
+# INVALID — exit check: "bounded Workflow loops pass; unbounded loops fail". The returning edge
+# retry → work closes a loop but declares no loop.maxIterations / loop.exitWhen (N02).
+apiVersion: agentspec.mutagent.io/v0.3.0
+kind: Workflow
+metadata: { id: x, name: X, version: "1.0.0", description: "x" }
+spec:
+  intent:
+    problem: "p"
+    outcomes: []
+    sop: []
+    jobs: []
+    constraints: []
+    nonGoals: []
+    assumptions: []
+    unknowns: []
+  context: []
+  actions: []
+  capabilities: { code: [], skills: [], delegates: [] }
+  workflow:
+    state: S
+    entry: work
+    nodes:
+      - { id: work, description: "do work", edges: [{ to: retry }] }
+      - { id: retry, description: "loop back without a bound", edges: [{ to: work }] }   # <-- unbounded loop
+  targets: []
+  evaluation: { criteria: [], scenarios: [], datasets: [] }

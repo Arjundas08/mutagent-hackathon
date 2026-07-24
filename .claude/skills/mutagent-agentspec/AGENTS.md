@@ -1,0 +1,1 @@
+/Users/burak/Desktop/Agents/MutagenT/mutagent-monorepo/.claude/worktrees/hack-sync-src/mutagent-system/mutagent-agentspec/.claude/skills/mutagent-agentspec/CLAUDE.md

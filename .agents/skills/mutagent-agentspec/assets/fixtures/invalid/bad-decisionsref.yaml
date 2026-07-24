@@ -1,0 +1,25 @@
+# INVALID — exit check: "decision-file references resolve". decisionsRef escapes the spec folder
+# with a relative directory escape — forbidden; it must be a colocated sibling like ./x.md (N03).
+apiVersion: agentspec.mutagent.io/v0.3.0
+kind: Agent
+metadata: { id: x, name: X, version: "1.0.0", description: "x" }
+spec:
+  intent:
+    problem: "p"
+    outcomes: []
+    sop: []
+    jobs: []
+    constraints: []
+    nonGoals: []
+    assumptions: []
+    unknowns: []
+  context: []
+  actions: []
+  capabilities: { code: [], skills: [], delegates: [] }
+  agent:
+    persona: { role: r, description: d }
+    systemPrompt: "sp"
+    operatingType: automation
+  targets: []
+  evaluation: { criteria: [], scenarios: [], datasets: [] }
+  decisionsRef: ../../etc/passwd.md                   # <-- directory escape → reject (N03)

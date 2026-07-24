@@ -1,0 +1,46 @@
+# INVALID — exit check: "member cycles fail". The subagents dispatch graph forms a cycle
+# (alpha → beta → alpha), which the semantic validator must reject (N02: finite, acyclic members).
+apiVersion: agentspec.mutagent.io/v0.3.0
+kind: MultiAgent
+metadata: { id: x, name: X, version: "1.0.0", description: "x" }
+spec:
+  intent:
+    problem: "p"
+    outcomes: []
+    sop: []
+    jobs: []
+    constraints: []
+    nonGoals: []
+    assumptions: []
+    unknowns: []
+  context: []
+  actions: []
+  capabilities: { code: [], skills: [], delegates: [] }
+  multiAgent:
+    orchestrator: alpha
+    members:
+      - apiVersion: agentspec.mutagent.io/v0.3.0
+        kind: Agent
+        metadata: { id: alpha, name: Alpha, version: "1.0.0", description: "a" }
+        spec:
+          intentRef: "#spec/intent"
+          agent: { persona: { role: r, description: d }, systemPrompt: "s", operatingType: orchestrator }
+      - apiVersion: agentspec.mutagent.io/v0.3.0
+        kind: Agent
+        metadata: { id: beta, name: Beta, version: "1.0.0", description: "b" }
+        spec:
+          intentRef: "#spec/intent"
+          agent: { persona: { role: r, description: d }, systemPrompt: "s", operatingType: orchestrator }
+    relations:
+      subagents:
+        alpha: [beta]
+        beta: [alpha]                                 # <-- cycle alpha → beta → alpha
+      observes: {}
+    workflow:
+      inline:
+        state: S
+        entry: only
+        nodes:
+          - { id: only, description: "single terminal step", terminal: true }
+  targets: []
+  evaluation: { criteria: [], scenarios: [], datasets: [] }

@@ -1,0 +1,25 @@
+# INVALID — exit check: "context/action references resolve". A workflow node executor references an
+# action id (send-it) that does not exist in spec.actions[] — a dangling executor binding.
+apiVersion: agentspec.mutagent.io/v0.3.0
+kind: Workflow
+metadata: { id: x, name: X, version: "1.0.0", description: "x" }
+spec:
+  intent:
+    problem: "p"
+    outcomes: []
+    sop: []
+    jobs: []
+    constraints: []
+    nonGoals: []
+    assumptions: []
+    unknowns: []
+  context: []
+  actions: []                                         # no actions declared
+  capabilities: { code: [], skills: [], delegates: [] }
+  workflow:
+    state: S
+    entry: act
+    nodes:
+      - { id: act, description: "invoke a missing action", executor: { kind: action, ref: send-it }, terminal: true }  # <-- dangling action ref
+  targets: []
+  evaluation: { criteria: [], scenarios: [], datasets: [] }
