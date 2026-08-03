@@ -23,6 +23,7 @@ traces/
 # Kept on disk (usable), never committed to main — fresh-install is tested separately.
 .claude/
 .codex/
+.agents/
 CLAUDE.md
 AGENTS.md
 package.json
