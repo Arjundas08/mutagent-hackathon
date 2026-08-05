@@ -79,12 +79,14 @@ specialized subagent; nothing auto-advances, and every apply is approval-gated.
 # 1 · fork this repo on GitHub, then clone your fork
 git clone https://github.com/<your-team>/mutagent-hackathon && cd mutagent-hackathon
 
-# 2 · install the system  (agents + skills → .claude/ and .codex/)
-bunx @mutagent/helix init        # or: npx / pnpx
+# 2 · install the system  (CLI → sign in → agents + skills into .claude/ and .codex/)
+npm install -g @mutagent/cli     # or pnpm / bun
+mutagent login
+mutagent install helix
 
-# 3 · boot
-claude            # or codex
-> mutagent
+# 3 · boot your coding agent, then summon the orchestrator
+claude                           # or codex
+> *mutagent                      # or /mutagent-helix
 ```
 
 > 📖 New here? Open the walkthrough **[`quickstart.html`](./quickstart.html)** (or **[`quickstart.pdf`](./quickstart.pdf)**); full docs at **[docs.mutagent.io](https://docs.mutagent.io)**.
@@ -127,7 +129,7 @@ mutagent-hackathon/
 └── submissions/<team>/    ← your challenge goes here (via PR)
 ```
 
-> The Mutagent system itself (agents + skills) is **installed locally via `helix init`**, not committed here.
+> The Mutagent system itself (agents + skills) is **installed locally via `mutagent install helix`**, not committed here.
 
 ---
 
